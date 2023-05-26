@@ -1,6 +1,7 @@
 {
   "name": "file-opened-watcher",
   "displayName": "File opened watcher",
+  "publisher": "lzdetourer",
   "description": "A Watcher that show a message if a file opened in the editor matches the pattern. Set the desired pattern in the 'settings.fileOpenedWatcher.patterns' value. If not set, a message is displayed every time every file is opened.",
   "version": "0.0.1",
   "engines": {
