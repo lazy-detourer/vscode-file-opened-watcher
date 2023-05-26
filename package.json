@@ -1,0 +1,134 @@
+{
+  "name": "file-opened-watcher",
+  "displayName": "File opened watcher",
+  "description": "A Watcher that show a message if a file opened in the editor matches the pattern. Set the desired pattern in the 'settings.fileOpenedWatcher.patterns' value. If not set, a message is displayed every time every file is opened.",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.78.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./extension.js",
+  "contributes": {
+    "configuration":[
+      {
+        "title": "File Opened watcher",
+        "properties": {
+          "fileOpenedWatcher.patterns": {
+            "type": "array",
+            "default": [{
+              "workspaceName": ".*",
+              "fileName": ".*",
+              "message": "${workspaceName}'s file ${fileName} is opened!"
+            }],
+            "description": "Patterns list of apply to opened file",
+            "title": "Patterns list",
+            "items": {
+              "type": "object",
+              "title": "Pattern",
+              "description": "Pattern of apply to opened file",
+              "default": {
+                "workspaceName": ".*",
+                "fileName": ".*",
+                "message": "${workspaceName}'s file ${fileName} is opened!"
+              },
+              "examples": [
+                {
+                  "fileName": "\\.js$",
+                  "message": "Workspace ${workspaceName}'s javascript file ${fileName} is opened!"
+                },
+                {
+                  "workspaceName": "^test.+",
+                  "message": "Workspace name starts with test ${workspaceName}'s file ${fileName} is opened!"
+                }
+              ],
+              "properties": {
+                "fileName": {
+                  "type": "string",
+                  "default": ".*",
+                  "description": "Regular expression pattern for the opened file name, excluding the path."
+                },
+                "fileNameModeModifier": {
+                  "type": "string",
+                  "default": "i",
+                  "description": "Regular expression mode modifier for fileName"
+                },
+                "relativeFilePath": {
+                  "type": "string",
+                  "default": ".*",
+                  "description": "Regular expression pattern for the relative path from the workspace path of opened file, excluding the file name. Activated even by matching only ones, when if workspace has multiple paths by Multi-root and if the open file path is included in multiple workspace paths."
+                },
+                "relativeFilePathModeModifier": {
+                  "type": "string",
+                  "default": "i",
+                  "description": "Regular expression mode modifier for relativeFilePath"
+                },
+                "absoluteFilePath": {
+                  "type": "string",
+                  "default": ".*",
+                  "description": "Regular expression pattern for the absolute path from the root path of opened file, excluding the file name."
+                },
+                "absoluteFilePathModeModifier": {
+                  "type": "string",
+                  "default": "i",
+                  "description": "Regular expression mode modifier for absoluteFilePath"
+                },
+                "workspaceName": {
+                  "type": "string",
+                  "default": ".*",
+                  "description": "Regular expression pattern for the workspace name."
+                },
+                "workspaceNameModeModifier": {
+                  "type": "string",
+                  "default": "i",
+                  "description": "Regular expression mode modifier for workspaceName"
+                },
+                "workspacePath": {
+                  "type": "string",
+                  "default": ".*",
+                  "description": "Regular expression pattern for the workspace path, regardless of the open file path. Activated even by matching only ones, when if workspace has multiple paths by Multi-root."
+                },
+                "workspacePathModeModifier": {
+                  "type": "string",
+                  "default": "i",
+                  "description": "Regular expression mode modifier for workspacePath"
+                },
+                "message": {
+                  "type": "string",
+                  "default": "${workspaceName}'s file ${fileName} is opened!",
+                  "description": "Display message text.",
+                  "examples": [
+                    "The opened file name is ${fileName}",
+                    "The relative path from the workspace path of opened fiie is ${relativeFilePath}",
+                    "The absolute path from the root path of opened fiie is ${absoluteFilePath}",
+                    "The workspace name of opened file is ${workspaceName}",
+                    "The workspace path of opened file is ${workspacePath}"
+                  ]
+                },
+                "messageType": {
+                  "type": "string",
+                  "default": "information",
+                  "enum": [ "information", "warning", "error" ],
+                  "description": "Type of message"
+                }
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.78.0",
+    "@types/glob": "^8.1.0",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "16.x",
+    "glob": "^8.1.0",
+    "mocha": "^10.2.0",
+    "typescript": "^5.0.4"
+  }
+}
